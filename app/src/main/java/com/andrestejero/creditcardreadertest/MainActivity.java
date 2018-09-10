@@ -1,6 +1,8 @@
 package com.andrestejero.creditcardreadertest;
 
+import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -17,77 +19,28 @@ import java.util.logging.Logger;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText reader;
-    private TextView number;
-    private TextView name;
-    private TextView date;
-    private boolean first = true;
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        reader = (EditText) findViewById(R.id.reader);
-        number = (TextView) findViewById(R.id.number);
-        name = (TextView) findViewById(R.id.name);
-        date = (TextView) findViewById(R.id.date);
-        Button button = (Button) findViewById(R.id.button);
+        Button buttonCard = (Button) findViewById(R.id.buttonCard);
+        Button buttonDocument = (Button) findViewById(R.id.buttonDocument);
 
-        reader.setInputType(InputType.TYPE_NULL);
-
-        reader.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-            }
-
-            @Override
-            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-                // FIXME: 3/9/18 cambiar "_" por "?"
-                if (charSequence.length() > 0 && charSequence.toString().charAt(charSequence.length() - 1) == '?') {
-                    if (first) {
-                        parseCreditCard(charSequence);
-                        first = false;
-                    } else {
-                        reader.setText(null);
-                    }
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-
-            }
-        });
-
-        button.setOnClickListener(new View.OnClickListener() {
+        buttonCard.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                cleanForm();
+                Intent intent = new Intent(MainActivity.this, CardReaderActivity.class);
+                startActivity(intent);
             }
         });
-    }
 
-    private void cleanForm() {
-        reader.setText(null);
-        number.setText(null);
-        name.setText(null);
-        date.setText(null);
-        first = true;
-    }
-
-    private void parseCreditCard(@NonNull CharSequence charSequence) {
-        // FIXME: 3/9/18 cambiar "&" por "\\^"
-        if (charSequence.toString().contains("\u005E")) {
-            String split[] = charSequence.toString().split("\\^");
-           if (split.length > 2) {
-                number.setText(split[0].substring(2));
-                name.setText(split[1].trim());
-                String year = split[2].substring(0, 2);
-                String month = split[2].substring(2, 4);
-                date.setText(getString(R.string.date, month, year));
+        buttonDocument.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(MainActivity.this, DocumentReaderActivity.class);
+                startActivity(intent);
             }
-        }
+        });
     }
 }

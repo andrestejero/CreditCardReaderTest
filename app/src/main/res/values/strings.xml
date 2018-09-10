@@ -2,4 +2,8 @@
     <string name="app_name">CreditCardReaderTest</string>
     <string name="date">Vencimiento: %1$s/%2$s</string>
     <string name="card_title">Pasá la tarjeta por el lector</string>
+    <string name="document_title">Escaneá tu DNI</string>
+    <string name="document_name">Nombre: %1$s/%2$s</string>
+    <string name="document_date">Fecha de nacimiento: %1$s</string>
+    <string name="document_gender">Sexo: %1$s</string>
 </resources>
