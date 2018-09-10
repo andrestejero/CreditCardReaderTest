@@ -1,0 +1,5 @@
+<resources>
+    <string name="app_name">CreditCardReaderTest</string>
+    <string name="date">Vencimiento: %1$s/%2$s</string>
+    <string name="card_title">Pasá la tarjeta por el lector</string>
+</resources>
